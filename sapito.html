@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+	
+h1{
+	font-family: arial;
+	font-size: 38px;
+}
+</style>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SOS TREMENDO SAPO</title>
+	<script>
+    // Bloquear clic derecho
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    }, false);
+
+    // Bloquear teclas de inspección
+    document.addEventListener("keydown", function (e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Detección de consola abierta (básica)
+    (function () {
+      const element = new Image();
+      Object.defineProperty(element, 'id', {
+        get: function () {
+          document.body.innerHTML = '<h1 style="color:red;text-align:center;">Inspección desactivada</h1>';
+        }
+      });
+      console.log(element);
+    })();
+  </script>
+</head>
+<body>
+<center>
+	<h1>Mira al bobo, creé que se la esta comiendo</h1>
+	<h1>Deja lo sapo y ponete a trabajar mijo</h1>
+	<img src="images/sapo.jpg" width="350">
+</center>
+</body>
+</html>
